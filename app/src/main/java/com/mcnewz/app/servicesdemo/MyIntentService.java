@@ -3,33 +3,37 @@ package com.mcnewz.app.servicesdemo;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.IBinder;
+import android.os.ResultReceiver;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
 // Intent Service Demo
 public class MyIntentService extends IntentService {
-	private static final String TAG = "MyIntentService";
+    private static final String TAG = "MyIntentService";
 
-	public MyIntentService() {
-		super("MyWorkerThread");
-	}
+    public MyIntentService() {
+        super("MyWorkerThread");
+    }
 
 
-	@Override
-	public void onCreate() {
-		super.onCreate();
-		Log.i(TAG, "onCreate: Thread name" + Thread.currentThread().getName());
-	}
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Log.i(TAG, "onCreate: Thread name" + Thread.currentThread().getName());
+    }
 
-	@Override
-	protected void onHandleIntent(@Nullable Intent intent) {
-		Log.i(TAG, "onHandleIntent: Thread name: " + Thread.currentThread().getName());
-		int sleepTime = intent.getIntExtra("sleepTime", 1);
+    @Override
+    protected void onHandleIntent(@Nullable Intent intent) {
+        Log.i(TAG, "onHandleIntent: Thread name: " + Thread.currentThread().getName());
+        int sleepTime = intent.getIntExtra("sleepTime", 1);
 
-		int ctr = 1;
-        while(ctr <= sleepTime) {
-            Log.i(TAG,"Counter is now " + ctr);
+        ResultReceiver resultReceiver = intent.getParcelableExtra("receiver");
+
+        int ctr = 1;
+        while (ctr <= sleepTime) {
+            Log.i(TAG, "Counter is now " + ctr);
 
             try {
                 Thread.sleep(1000);
@@ -38,16 +42,18 @@ public class MyIntentService extends IntentService {
             }
             ctr++;
         }
-
+        Bundle bundle = new Bundle();
+        bundle.putString("resultIntentService", "Counter stopped at " + ctr + " seconds");
+        resultReceiver.send(18, bundle);
     }
 
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		Log.i(TAG, "onDestroy: Thread name: " + Thread.currentThread().getName());
-	}
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onDestroy: Thread name: " + Thread.currentThread().getName());
+    }
 
-	//
+    //
 //	private static final String TAG = MyIntentService.class.getSimpleName();
 //
 //	public MyIntentService() {
