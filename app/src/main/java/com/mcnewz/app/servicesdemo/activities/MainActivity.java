@@ -1,4 +1,4 @@
-package com.mcnewz.app.servicesdemo;
+package com.mcnewz.app.servicesdemo.activities;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,6 +12,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.mcnewz.app.servicesdemo.services.MyIntentService;
+import com.mcnewz.app.servicesdemo.services.MyStartedService;
+import com.mcnewz.app.servicesdemo.R;
 
 public class MainActivity extends AppCompatActivity {
     private TextView txvIntentServiceResult, txvStartedServiceResult;
@@ -74,7 +78,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void moveToSecondActivity(View view) {
-        Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+        Intent intent = new Intent(MainActivity.this, MyBoundActivity.class);
+        startActivity(intent);
+    }
+
+    public void moveToMessengerActivity(View view) {
+
+        Intent intent = new Intent(this, MyMessengerActivity.class);
         startActivity(intent);
     }
 

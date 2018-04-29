@@ -7,7 +7,7 @@
 	android:paddingLeft="@dimen/activity_horizontal_margin"
 	android:paddingRight="@dimen/activity_horizontal_margin"
 	android:paddingTop="@dimen/activity_vertical_margin"
-	tools:context=".activities.MyBoundActivity">
+	tools:context=".activities.MyMessengerActivity">
 
 	<EditText
 		android:id="@+id/etNumOne"
@@ -23,51 +23,40 @@
 		android:id="@+id/etNumTwo"
 		android:layout_width="50dp"
 		android:layout_height="wrap_content"
-		android:layout_above="@+id/btnAdd"
-		android:layout_alignEnd="@+id/btnSub"
-		android:layout_alignRight="@+id/btnSub"
+		android:layout_alignParentEnd="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentTop="true"
+		android:layout_marginTop="42dp"
 		android:text="0"/>
 
 	<Button
 		android:id="@+id/btnAdd"
 		android:layout_width="150dp"
 		android:layout_height="wrap_content"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentStart="true"
-		android:layout_below="@+id/etNumOne"
-		android:layout_marginTop="67dp"
-		android:onClick="onClickEvent"
+		android:layout_below="@+id/txvResult"
+		android:layout_centerInParent="true"
+		android:layout_marginTop="30dp"
+		android:onClick="performAddOperation"
 		android:text="Add"/>
 
 	<Button
-		android:id="@+id/btnSub"
+		android:id="@+id/btnBindService"
 		android:layout_width="150dp"
 		android:layout_height="wrap_content"
-		android:layout_alignParentEnd="true"
-		android:layout_alignParentRight="true"
-		android:layout_alignTop="@+id/btnAdd"
-		android:onClick="onClickEvent"
-		android:text="Substract"/>
+		android:layout_below="@+id/btnAdd"
+		android:layout_centerInParent="true"
+		android:layout_marginTop="50dp"
+		android:onClick="bindService"
+		android:text="BIND SERVICE"/>
 
 	<Button
-		android:id="@+id/btnMul"
+		android:id="@+id/btnUnbindService"
 		android:layout_width="150dp"
 		android:layout_height="wrap_content"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentStart="true"
-		android:layout_centerVertical="true"
-		android:onClick="onClickEvent"
-		android:text="Multiply"/>
-
-	<Button
-		android:id="@+id/btnDiv"
-		android:layout_width="150dp"
-		android:layout_height="wrap_content"
-		android:layout_alignParentEnd="true"
-		android:layout_alignParentRight="true"
-		android:layout_alignTop="@+id/btnMul"
-		android:onClick="onClickEvent"
-		android:text="Divide"/>
+		android:layout_below="@+id/btnBindService"
+		android:layout_centerInParent="true"
+		android:onClick="unbindService"
+		android:text="UNBIND SERVICE"/>
 
 	<TextView
 		android:id="@+id/txvResult"
@@ -75,6 +64,7 @@
 		android:layout_height="wrap_content"
 		android:layout_below="@+id/etNumOne"
 		android:layout_centerHorizontal="true"
-		android:hint="Result"/>
+		android:hint="Result"
+		android:textSize="25sp"/>
 
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.mcnewz.app.servicesdemo;
+package com.mcnewz.app.servicesdemo.services;
 
 import android.app.Service;
 import android.content.Intent;
@@ -11,7 +11,7 @@ public class MyBoundService extends Service {
     private MyLocalBinder myLocalBinder = new MyLocalBinder();
 
     public class MyLocalBinder extends Binder{
-        MyBoundService getService(){
+        public MyBoundService getService(){
             return MyBoundService.this;
         }
     }

@@ -1,4 +1,4 @@
-package com.mcnewz.app.servicesdemo;
+package com.mcnewz.app.servicesdemo.services;
 
 
 import android.app.IntentService;

@@ -1,4 +1,4 @@
-package com.mcnewz.app.servicesdemo;
+package com.mcnewz.app.servicesdemo.activities;
 
 
 import android.content.ComponentName;
@@ -12,7 +12,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class SecondActivity extends AppCompatActivity {
+import com.mcnewz.app.servicesdemo.services.MyBoundService;
+import com.mcnewz.app.servicesdemo.R;
+
+public class MyBoundActivity extends AppCompatActivity {
 
     boolean isBound = false;
     private MyBoundService myBoundService;
