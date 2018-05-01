@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mcnewz.app.servicesdemo.R;
 import com.mcnewz.app.servicesdemo.services.MyMessengerService;
@@ -23,6 +25,27 @@ public class MyMessengerActivity extends AppCompatActivity {
     private TextView txvResult;
 
     private Messenger mService = null;    // To send data to Service
+
+    private class IncomingResponseHandler extends Handler {
+
+        @Override
+        public void handleMessage(Message msgFromService) {
+            super.handleMessage(msgFromService);
+
+            switch (msgFromService.what) {
+                case 87:
+                    Bundle bundle = msgFromService.getData();
+                    int result = bundle.getInt("reslt", 0);
+
+                    txvResult.setText("Result: " + result);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private Messenger incomingMessnger = new Messenger(new IncomingResponseHandler());
 
     private ServiceConnection mConnection = new ServiceConnection() {
         @Override
@@ -58,9 +81,10 @@ public class MyMessengerActivity extends AppCompatActivity {
 
         Bundle bundle = new Bundle();
         bundle.putInt("numOne", num1);
-        bundle.putInt("numTwo", num2  );
+        bundle.putInt("numTwo", num2);
 
         msgToService.setData(bundle);
+        msgToService.replyTo = incomingMessnger;
 
         try {
             mService.send(msgToService);
@@ -70,14 +94,13 @@ public class MyMessengerActivity extends AppCompatActivity {
     }
 
 
-
     public void bindService(View view) {
         Intent intent = new Intent(this, MyMessengerService.class);
         bindService(intent, mConnection, BIND_AUTO_CREATE);
     }
 
     public void unbindService(View view) {
-        if (mIsBound){
+        if (mIsBound) {
             unbindService(mConnection);
             mIsBound = false;
         }
